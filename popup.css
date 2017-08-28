@@ -45,11 +45,12 @@ body {
     width:160px;
     height:30px;
     line-height: 30px;
+    padding:0 10px;
 }
 
 .btn {
     height: 30px;
     line-height: 30px;
-    width:160px;
+    width:180px;
     text-align: center;
 }
