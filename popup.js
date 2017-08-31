@@ -22,6 +22,23 @@ $(function() {
 
     var API_DOMAIN = 'https://api.github.com';
 
+    var pageController = {
+        init: function() {
+            this.$tbUsername = $('#tbUsername');
+            this.$tbPassword = $('#tbPassword');
+            this.$btnSure = $('#btnSure');
+            this.bindEvent();
+        },
+        bindEvent: function() {
+            var that = this;
+            this.$btnSure.click(function() {
+
+            });
+        }
+    };
+
+    pageController.init();
+
     var gitHubController = {
         URL: {
             userInfo: API_DOMAIN + '/users/:user',
@@ -181,25 +198,25 @@ $(function() {
         }
     };
 
-    gitHubController.init('wujunxi', 'e8f03d4dd0e26a407ef029861c1c4971115e4a99')
-        .getUserInfo(function(res) {
-            console.log('user info:');
-            console.log(res);
-        }).getFileInfo({
-            repo: 'test-github-api',
-            branch: 'master',
-            path: 'data.json'
-        }, function(res) {
-            console.log('file info:');
-            console.log(res);
-        }).getJsonFile({
-            repo: 'test-github-api',
-            branch: 'master',
-            path: 'data.json'
-        }, function(res) {
-            console.log('json file:');
-            console.log(res);
-        });
+    // gitHubController.init('wujunxi', 'e8f03d4dd0e26a407ef029861c1c4971115e4a99')
+    //     .getUserInfo(function(res) {
+    //         console.log('user info:');
+    //         console.log(res);
+    //     }).getFileInfo({
+    //         repo: 'test-github-api',
+    //         branch: 'master',
+    //         path: 'data.json'
+    //     }, function(res) {
+    //         console.log('file info:');
+    //         console.log(res);
+    //     }).getJsonFile({
+    //         repo: 'test-github-api',
+    //         branch: 'master',
+    //         path: 'data.json'
+    //     }, function(res) {
+    //         console.log('json file:');
+    //         console.log(res);
+    //     });
 
     // gitHubController.createRepo({
     //     name:'test-github-api',
