@@ -1,12 +1,12 @@
 * {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
     font-size: 14px;
-    color:#333;
+    color: #333;
 }
 
 #status {
@@ -18,39 +18,68 @@ body {
 }
 
 .content {
-    width:300px;
-    height:200px;
-    padding:20px;
+    width: 300px;
+    padding: 20px;
+    background: url(./github.svg) center center no-repeat #fff;
+    background-size: contain;
 }
 
-.login {
-    
-}
+.login {}
 
 .row {
     overflow: hidden;
-    margin:20px 0 0 0;
+    margin: 20px 0 0 0;
+}
+
+.row:first-child {
+    margin: 0;
 }
 
 .key {
-    float:left;
-    width:80px;
-    height:30px;
+    float: left;
+    width: 80px;
+    height: 30px;
     line-height: 30px;
-    color:#666;
+    color: #666;
 }
 
 .input {
-    float:left;
-    width:160px;
-    height:30px;
+    float: left;
+    width: 160px;
+    height: 30px;
     line-height: 30px;
-    padding:0 10px;
+    padding: 0 10px;
+}
+
+.tip {
+    position: absolute;
+    margin: 6px 0 0 80px;
+    text-align: center;
+    color: #c00;
+    font-size: 12px;
 }
 
 .btn {
+    border: solid 1px #009933;
     height: 30px;
     line-height: 30px;
-    width:180px;
+    width: 180px;
     text-align: center;
+    color: #fff;
+    background: #009933;
+}
+
+.btn:hover {
+    border: solid 1px #006633;
+    background: #006633;
+}
+
+.btn.disabled {
+    opacity: .3;
+    border: solid 1px #009933;
+    background: #009933;
+}
+
+.mt-40 {
+    margin-top: 40px;
 }
