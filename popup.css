@@ -9,14 +9,6 @@ body {
     color: #333;
 }
 
-#status {
-    /* avoid an excessively wide status text */
-    white-space: pre;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 400px;
-}
-
 .content {
     width: 300px;
     padding: 20px;
@@ -44,11 +36,17 @@ body {
 }
 
 .input {
+    outline: none;
+    border: solid 1px #ccc;
     float: left;
-    width: 160px;
+    width: 158px;
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
+}
+
+.input.error {
+    border: solid 1px #c00;
 }
 
 .tip {
@@ -60,6 +58,7 @@ body {
 }
 
 .btn {
+    float: left;
     border: solid 1px #009933;
     height: 30px;
     line-height: 30px;
@@ -74,12 +73,90 @@ body {
     background: #006633;
 }
 
+.btn.half {
+    width: 80px;
+}
+
+.btn.half:last-child {
+    margin: 0 0 0 20px;
+}
+
+.btn.light {
+    color: #999;
+    background: #fefefe;
+    border: solid 1px #ccc;
+}
+
+.btn.light:hover {
+    background: #eee;
+    border: solid 1px #ccc;
+}
+
 .btn.disabled {
     opacity: .3;
-    border: solid 1px #009933;
-    background: #009933;
 }
 
 .mt-40 {
     margin-top: 40px;
+}
+
+.loading-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.loading {
+    width: 150px;
+    height: 15px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading span {
+    display: inline-block;
+    width: 15px;
+    height: 100%;
+    margin-right: 5px;
+    background: lightgreen;
+    transform-origin: right bottom;
+    animation: load 1s ease infinite;
+}
+
+.loading span:last-child {
+    margin-right: 0px;
+}
+
+@keyframes load {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(90deg);
+    }
+}
+
+.loading span:nth-child(1) {
+    animation-delay: 0.13s;
+}
+
+.loading span:nth-child(2) {
+    animation-delay: 0.26s;
+}
+
+.loading span:nth-child(3) {
+    animation-delay: 0.39s;
+}
+
+.loading span:nth-child(4) {
+    animation-delay: 0.52s;
+}
+
+.loading span:nth-child(5) {
+    animation-delay: 0.65s;
 }

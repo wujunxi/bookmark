@@ -6,7 +6,12 @@
             type: "put",
             url: url,
             data: data,
-            success: callback
+            success: function(res) {
+                callback && callback(res);
+            },
+            error: function(xhr) {
+                callback && callback(xhr.responseJSON);
+            }
         });
     };
 
@@ -15,10 +20,43 @@
             type: "delete",
             url: url,
             data: data,
-            success: callback
+            success: function(res) {
+                callback && callback(res);
+            },
+            error: function(xhr) {
+                callback && callback(xhr.responseJSON);
+            }
         });
     }
-    
+
+    $.get = function(url, data, callback) {
+        return $.ajax({
+            type: "get",
+            url: url,
+            data: data,
+            success: function(res) {
+                callback && callback(res);
+            },
+            error: function(xhr) {
+                callback && callback(xhr.responseJSON);
+            }
+        });
+    }
+
+    $.post = function(url, data, callback) {
+        return $.ajax({
+            type: "post",
+            url: url,
+            data: data,
+            success: function(res) {
+                callback && callback(res);
+            },
+            error: function(xhr) {
+                callback && callback(xhr.responseJSON);
+            }
+        });
+    }
+
     var API_DOMAIN = 'https://api.github.com';
 
     var gitHubController = win.gitHubController = {
@@ -64,7 +102,7 @@
          * 获取用户信息
          */
         getUserInfo: function(cb) {
-            $.get(this.url('userInfo'), cb);
+            $.get(this.url('userInfo'), {}, cb);
             return this;
         },
         /**
@@ -73,10 +111,10 @@
         getFileInfo: function(_opts, cb) {
             var opts = $.extend({
                 repo: '',
-                branch: '',
+                branch: 'master',
                 path: ''
             }, _opts);
-            $.get(this.url('fileInfo', opts), cb);
+            $.get(this.url('fileInfo', opts), {}, cb);
             return this;
         },
         /**
@@ -208,7 +246,7 @@
         }
     };
 
-    gitHubController.init('wujunxi', '566d36b2f46f91ac0bc74dcccff4eee04e81afe4');
+    // gitHubController.init('wujunxi', '566d36b2f46f91ac0bc74dcccff4eee04e81afe4');
 
     // gitHubController.getUserInfo(function(res) {
     //     console.log('user info:');
