@@ -160,3 +160,23 @@ body {
 .loading span:nth-child(5) {
     animation-delay: 0.65s;
 }
+
+.success {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+}
+
+.icon-success {
+    width: 100%;
+    height: 80%;
+    background: url(right.svg) center center/100% 100% no-repeat #fff;
+}
+
+.success-info {
+    width: 100%;
+    text-align: center;
+}
