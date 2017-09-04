@@ -1,16 +1,16 @@
 (function($, win) {
 
-    // jquery ajax extend put\delete
+    // jquery ajax extend
     $.put = function(url, data, callback) {
         return $.ajax({
             type: "put",
             url: url,
             data: data,
             success: function(res) {
-                callback && callback(res);
+                callback && callback(null, res);
             },
             error: function(xhr) {
-                callback && callback(xhr.responseJSON);
+                callback && callback((xhr.responseJSON && xhr.responseJSON.message) || 'error');
             }
         });
     };
@@ -21,10 +21,10 @@
             url: url,
             data: data,
             success: function(res) {
-                callback && callback(res);
+                callback && callback(null, res);
             },
             error: function(xhr) {
-                callback && callback(xhr.responseJSON);
+                callback && callback((xhr.responseJSON && xhr.responseJSON.message) || 'error');
             }
         });
     }
@@ -35,10 +35,10 @@
             url: url,
             data: data,
             success: function(res) {
-                callback && callback(res);
+                callback && callback(null, res);
             },
             error: function(xhr) {
-                callback && callback(xhr.responseJSON);
+                callback && callback((xhr.responseJSON && xhr.responseJSON.message) || 'error');
             }
         });
     }
@@ -49,10 +49,10 @@
             url: url,
             data: data,
             success: function(res) {
-                callback && callback(res);
+                callback && callback(null, res);
             },
             error: function(xhr) {
-                callback && callback(xhr.responseJSON);
+                callback && callback((xhr.responseJSON && xhr.responseJSON.message) || 'error');
             }
         });
     }
@@ -63,7 +63,6 @@
         URL: {
             userInfo: API_DOMAIN + '/users/:user', // GET
             fileInfo: API_DOMAIN + '/repos/:user/:repo/contents/:path', // GET
-            rawFile: 'https://raw.githubusercontent.com/:user/:repo/:branch/:path', // GET
             getRepos: API_DOMAIN + '/user/repos', // GET
             createRepo: API_DOMAIN + '/user/repos', // POST
             deleteRepo: API_DOMAIN + '/repos/:user/:repo', // DELETE
@@ -122,8 +121,12 @@
          */
         getFile: function(_opts, cb) {
             var that = this;
-            this.getFileInfo(_opts, function(res) {
-                cb(that.base64.decode(res['content']));
+            this.getFileInfo(_opts, function(err, res) {
+                if (err) {
+                    cb(err);
+                } else {
+                    cb(null, that.base64.decode(res['content']));
+                }
             });
             return this;
         },
@@ -131,8 +134,12 @@
          * 获取json格式文件
          */
         getJsonFile: function(_opts, cb) {
-            this.getFile(_opts, function(res) {
-                cb(JSON.parse(res));
+            this.getFile(_opts, function(err, res) {
+                if (err) {
+                    cb(err);
+                } else {
+                    cb(null, JSON.parse(res));
+                }
             });
             return this;
         },
@@ -245,89 +252,5 @@
             return this;
         }
     };
-
-    // gitHubController.init('wujunxi', '566d36b2f46f91ac0bc74dcccff4eee04e81afe4');
-
-    // gitHubController.getUserInfo(function(res) {
-    //     console.log('user info:');
-    //     console.log(res);
-    // })
-
-    // gitHubController.getRepos({}, function(res) {
-    //     console.log('my repos');
-    //     console.log(res);
-    // });
-
-    // gitHubController.getFileInfo({
-    //     repo: 'test-github-api',
-    //     branch: 'master',
-    //     path: 'data.json'
-    // }, function(res) {
-    //     console.log('file info:');
-    //     console.log(res);
-    // });
-
-    // gitHubController.getJsonFile({
-    //     repo: 'test-github-api',
-    //     branch: 'master',
-    //     path: 'data.json'
-    // }, function(res) {
-    //     console.log('json file:');
-    //     console.log(res);
-    // });
-
-    // gitHubController.createRepo({
-    //     name:'test-github-api',
-    //     description:'only test'
-    // },function(res){
-    //     console.log('create repo');
-    //     console.log(res);
-    // });
-
-    // gitHubController.deleteRepo({
-    //     repo:'test-github-api'
-    // },function(res){
-    //     console.log('delete repo');
-    //     console.log(res);
-    // });
-
-    // gitHubController.createJsonFile({
-    //     repo: 'test-github-api',
-    //     branch: 'master',
-    //     path: 'data.json',
-    //     message: 'first commit',
-    //     content: {
-    //         name:'hello world!'
-    //     }
-    // },function(res){
-    //     console.log('create file:');
-    //     console.log(res);
-    // });
-
-    // 171d6e9b238ab7210721db78b93e4c6b5185bcfd 
-    // gitHubController.updateJsonFile({
-    //     repo: 'test-github-api',
-    //     branch: 'master',
-    //     path: 'data.json',
-    //     message: 'update',
-    //     sha:'171d6e9b238ab7210721db78b93e4c6b5185bcfd', // 待更新文件的sha
-    //     content: {
-    //         text: 'hello world!'
-    //     }
-    // }, function(res) {
-    //     console.log('update file:');
-    //     console.log(res);
-    // });
-
-    // gitHubController.deleteFile({
-    //     repo: 'test-github-api',
-    //     branch: 'master',
-    //     path: 'data.json',
-    //     message: 'delete file',
-    //     sha: '4b1dde0ccf1a13db77f423341b54b546cff83f76'
-    // },function(res){
-    //     console.log('delete file');
-    //     console.log(res);
-    // });
 
 })(jQuery, window);

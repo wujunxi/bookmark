@@ -29,7 +29,7 @@ body {
 
 .key {
     float: left;
-    width: 80px;
+    width: 100px;
     height: 30px;
     line-height: 30px;
     color: #666;
@@ -51,10 +51,70 @@ body {
 
 .tip {
     position: absolute;
-    margin: 6px 0 0 80px;
-    text-align: center;
+    margin: 6px 0 0 100px;
     color: #c00;
     font-size: 12px;
+}
+
+.remember-me {
+    position: absolute;
+    margin: 26px 0 0 100px;
+    font-size: 12px;
+}
+
+.remember-me .text {
+    opacity: 1;
+    transition: all .4s ease-in-out;
+}
+
+.remember-me.off .text {
+    opacity: .4;
+}
+
+.toggle {
+    display: inline-block;
+    width: 25px;
+    height: 16px;
+    vertical-align: middle;
+    margin: 0 0 0 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    border-radius: 1px;
+    box-shadow: 0 0 1px #000;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.toggle::after {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 1px #000;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translate(0, -50%);
+    transition: all .4s ease-in-out;
+}
+
+.toggle.on::after {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    left: 12px;
+    background: #009933;
+    box-shadow: none;
 }
 
 .btn {
@@ -96,8 +156,8 @@ body {
     opacity: .3;
 }
 
-.mt-40 {
-    margin-top: 40px;
+.mt-55 {
+    margin-top: 55px;
 }
 
 .loading-wrap {
