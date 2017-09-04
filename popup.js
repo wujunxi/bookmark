@@ -53,7 +53,7 @@ $(function() {
                     username: formObj.username,
                     token: formObj.token
                 };
-            if (type == 'Download') {
+            if (type == 'upload') {
                 this.getBookmarks(function(bookmarks) {
                     that.upload(bookmarks, opts, function() {
                         that.$loading.hide();
@@ -61,8 +61,9 @@ $(function() {
                 });
             } else {
                 this.download(opts, function(bookmarks) {
-                    that.setBookmarks(bookmarks);
-                    that.$loading.hide();
+                    that.setBookmarks(bookmarks,function(){
+                        that.$loading.hide();
+                    });
                 });
             }
         },
@@ -154,11 +155,70 @@ $(function() {
                 }, cb);
         },
         getBookmarks: function(cb) {
-            chrome.bookmarks.getTree(cb);
+            // 0-书签栏根目录 1-书签栏 2-其他书签栏
+            chrome.bookmarks.getSubTree('1', cb);
         },
-        setBookmarks: function(bookmarks) {
-            chrome.bookmarks.removeTree('0', function() {
-                chrome.bookmarks.create(bookmarks);
+        setBookmarks: function(bookmarks, cb) {
+            this.removeBookmarksFolder('1', function() {
+                // console.log('finish');
+                addBookmarks('1', bookmarks[0]);
+            });
+
+            function addBookmarks(parentId, bookmarks) {
+                var i, len, list = bookmarks.children || [];
+                addTask(list.length);
+                for (i = 0, len = list.length; i < len; i++) {
+                    (function(item) {
+                        chrome.bookmarks.create({
+                            parentId: parentId,
+                            index: item.index,
+                            title: item.title,
+                            url: item.url
+                        }, function(newBookmark) {
+                            finishTask();
+                            if (item.children && item.children.length > 0) {
+                                addBookmarks(newBookmark.id, item);
+                            }
+                        });
+                    })(list[i]);
+                }
+            }
+
+            var taskNum = 0,
+                finishNum = 0;
+
+            function addTask(num) {
+                taskNum += num;
+            }
+
+            function finishTask() {
+                finishNum++;
+                if (taskNum == finishNum) {
+                    cb();
+                }
+            }
+        },
+        /**
+         * 移除书签栏文件夹
+         */
+        removeBookmarksFolder: function(id, cb) {
+            chrome.bookmarks.getChildren(id, function(children) {
+                // console.log(arguments);
+                var i, len, item, total = 0;
+                for (i = 0, len = children.length; i < len; i++) {
+                    item = children[i];
+                    chrome.bookmarks.removeTree(item.id, removeCallback);
+                }
+
+                function removeCallback() {
+                    total++;
+                    if (len == total) {
+                        cb();
+                    }
+                }
+                if (len == 0) {
+                    cb();
+                }
             });
         }
     };
