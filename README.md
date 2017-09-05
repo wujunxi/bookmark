@@ -2,7 +2,7 @@
 
 > 上传/下载书签数据到Github
 
-Chrome Extension
+[Chrome webstore](https://chrome.google.com/webstore/detail/%E4%B9%A6%E7%AD%BE%E5%90%8C%E6%AD%A5/fbcbemgibdnpboehnfcnkegefaomnlbk?hl=zh-CN&gl=CN)
 
 使用指南：
 
