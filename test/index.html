@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../src/vendors/jquery-2.1.0.min.js"></script>
+    <script src="../src/vendors/base64.js"></script>
+    <script src="../src/github.js"></script>
+    <script src="token.js"></script>
+    <script>
+
+        var gitHubController = new GitHubHelper(USERNAME, TOKEN);
+        $(function () {
+            gitHubController
+                .getJsonFile({
+                    repo: 'mybookmarks1',
+                    path: 'aaa/bbb/test.json'
+                }, (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    console.log(result);
+                })
+
+            // .touchPath({
+            //     repo: 'mybookmarks1',
+            //     path: 'aaa/bbb/test.json'
+            // }, (err, result) => {
+            //     if (err) {
+            //         console.error(err);
+            //         return;
+            //     }
+            //     console.log(result);
+            // })
+
+            // .getUserInfo((err, result) => {
+            //     if (err) {
+            //         console.error(err);
+            //         return;
+            //     }
+            //     console.log(result);
+            // })
+
+            // .getFileInfo({
+            //     repo:'mybookmarks',
+            //     path:'aaa/test.json'
+            // },(err, result) => {
+            //     if (err) {
+            //         console.error(err);
+            //         return;
+            //     }
+            //     console.log(result);
+            // })
+
+            // .getRepo({
+            //     owner: username,
+            //     // repo: 'test-github-api',
+            //     repo: 'mybookmarks1',
+            // }, (err, result) => {
+            //     if (err) {
+            //         console.error(err);
+            //         return;
+            //     }
+            //     console.log(result);
+            // });
+        });
+    </script>
+</body>
+
+</html>
