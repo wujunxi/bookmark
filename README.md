@@ -34,6 +34,8 @@
 
 - 支持码云 [https://gitee.com/](https://gitee.com/)
 
+- 支持超过 1M的书签数据
+
 ### 参考文档
   
 - [Github API](https://developer.github.com/v3/)

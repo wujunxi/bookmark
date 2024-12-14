@@ -1,5 +1,5 @@
 
-var bookmarksHelper = {
+let bookmarksHelper = {
     _defaultConfig: {
         username: '',
         token: '',
